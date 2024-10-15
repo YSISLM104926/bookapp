@@ -32,7 +32,7 @@ const Dropdownlist = ({ value, setValue }) => {
             console.log("Unique topics:", uniqueTopics);
             setUniqueTopics(uniqueTopics);
         }
-    }, []);
+    }, [localStorage.getItem('dropdownlist')]);
 
     return (
         <div className='flex justify-center items-center'>
