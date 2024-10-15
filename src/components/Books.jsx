@@ -55,7 +55,7 @@ const Books = () => {
                     <input
                         type='text'
                         placeholder='Search for a book...'
-                        value={searchTerm}
+                        value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className='border rounded p-2 mr-2'
                     />
