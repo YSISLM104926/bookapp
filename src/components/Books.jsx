@@ -22,6 +22,7 @@ const Books = () => {
     const [page, setPage] = useState(1);
     const [value, setValue] = useState(null);
     const [searchTerm, setSearchTerm] = useState(null);
+    const [search, setSearch] = useState(null);
 
     const { data, error, isLoading } = useQuery({
         queryKey: ['books', page, searchTerm, value],
@@ -55,11 +56,11 @@ const Books = () => {
                         type='text'
                         placeholder='Search for a book...'
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={(e) => setSearch(e.target.value)}
                         className='border rounded p-2 mr-2'
                     />
                     <button
-                        onClick={() => setPage(1)}
+                        onClick={() => setSearchTerm(search)}
                         className='bg-blue-500 text-white p-2 rounded hover:bg-blue-400'
                     >
                         Search
