@@ -5,8 +5,11 @@ const WishListCard = ({ d }) => {
     const handleSingleBookShow = () => {
         window.location.href = `/book/${d.id}`
     }
-    const handleDeleteBookToStorage = () =>  {
-        
+    const handleDeleteBookToStorage = (id) => {
+        const localData = JSON.parse(localStorage.getItem('books'));
+        const newData = localData.filter(book => book.id !== id);
+        localStorage.setItem('books', JSON.stringify(newData));
+        window.location.reload();
     }
     return (
         <div key={d.id}>
@@ -25,12 +28,9 @@ const WishListCard = ({ d }) => {
                         </div>
                     </div>
                     <h1 className='w-44'>Title: {d.title.slice(0, 10)}</h1>
-                    {/* <h1 className='w-44'>Name: {d.authors[0].name}</h1> */}
-
                     <button onClick={handleSingleBookShow}  className='bg-gray-200 hover:bg-gray-100 w-40 mt-1'>
                         View details
                     </button>
-
                 </div>
             </div>
         </div>

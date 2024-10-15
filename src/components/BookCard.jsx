@@ -29,8 +29,6 @@ const BookCard = ({ res }) => {
                         </div>
                     </div>
                     <h1 className='w-44'>Title: {res.title.slice(0, 10)}</h1>
-                    {/* <h1 className='w-44'>Name: {res.authors[0].name}</h1> */}
-
                     <button onClick={handleSingleBookShow} className='bg-gray-200 hover:bg-gray-100 w-40 mt-1'>
                         View details
                     </button>

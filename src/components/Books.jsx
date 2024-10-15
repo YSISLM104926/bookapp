@@ -1,57 +1,55 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
 import React, { useEffect, useState } from 'react';
-
+import { useQuery } from '@tanstack/react-query'; 
 import BookCard from './BookCard';
 import Dropdownlist from './Dropdownlist';
+import Spinner from './spinner/Spinner';
 
+const fetchBooks = async (page, searchTerm, value) => {
+    const encodedSearchTerm = encodeURIComponent(searchTerm).replace(/%20/g, '%2520');
+    const baseUrl = 'https://gutendex.com/books/?page=' + page;
+    const searchParams = (searchTerm && value) ? `&search=${encodedSearchTerm}&topic=${value}` : (searchTerm || value) ? (searchTerm ? `&search=${encodedSearchTerm}` : `&topic=${value}`) : '';
+    const response = await fetch(baseUrl + searchParams, { headers: { 'Content-Type': 'application/json' } });
+    window.history.pushState(null, '', `?page=${page}${searchParams}`);
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+};
 
 const Books = () => {
-
-    const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null);
     const [page, setPage] = useState(1);
-    const [error, setError] = useState(null);
     const [value, setValue] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(null); 
+    const [searchTerm, setSearchTerm] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setError(null);
-            try {
-                const encodedSearchTerm = encodeURIComponent(searchTerm).replace(/%20/g, '%2520');
-                const baseUrl = 'https://gutendex.com/books/?page=' + page;
-                const searchParams = (searchTerm && value) ? `&search=${encodedSearchTerm}&topic=${value}` : (searchTerm || value) ? (searchTerm ? `&search=${encodedSearchTerm}` : `&topic=${value}`) : '';
-                const response = await fetch(baseUrl + searchParams, { headers: { 'Content-Type': 'application/json' } });
-                window.history.pushState(null, '', `?page=${page}${searchParams}`);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const { data, error, isLoading } = useQuery({
+        queryKey: ['books', page, searchTerm, value],
+        queryFn: () => fetchBooks(page, searchTerm, value),
+        keepPreviousData: true
+    });
 
-        fetchData();
-
-    }, [page, searchTerm, value]); 
+    const handlePageChange = (newPage) => {
+        if (newPage < 1) {
+            setPage(1);
+        } else {
+            setPage(newPage);
+        }
+    };
 
 
-    if (loading) {
-        return <div className='flex justify-center items-center h-screen'>loading.....</div>
+    if (isLoading) {
+        return <div className='flex justify-center items-center h-screen'><Spinner /></div>;
+    }
+
+    if (error) {
+        return <div>Error fetching data: {error.message}</div>;
     }
 
     return (
-
         <div className='mt-12'>
             <div className='flex gap-2 flex-col-reverse lg:flex-row lg:items-center lg:justify-between'>
                 <Dropdownlist value={value} setValue={setValue} />
-                <div className='flex justify-center mb-4'> 
+                <div className='flex justify-center mb-4'>
                     <input
                         type='text'
                         placeholder='Search for a book...'
@@ -60,12 +58,11 @@ const Books = () => {
                         className='border rounded p-2 mr-2'
                     />
                     <button
-                        onClick={() => setPage(1)} 
+                        onClick={() => setPage(1)}
                         className='bg-blue-500 text-white p-2 rounded hover:bg-blue-400'
                     >
                         Search
                     </button>
-
                 </div>
             </div>
             <h1 className='mt-10'>Total Books: {data?.count}</h1>
@@ -80,8 +77,6 @@ const Books = () => {
             </div>
         </div>
     );
-
-}
-
+};
 
 export default Books;
