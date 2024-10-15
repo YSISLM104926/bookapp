@@ -12,15 +12,18 @@ const Books = () => {
     const [data, setData] = useState(null);
     const [page, setPage] = useState(1);
     const [error, setError] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(''); // New state for search term
-
+    const [value, setValue] = useState(null);
+    const [searchTerm, setSearchTerm] = useState(null); // New state for search term
 
     useEffect(() => {
         const fetchData = async () => {
             setError(null);
             try {
                 const encodedSearchTerm = encodeURIComponent(searchTerm).replace(/%20/g, '%2520');
-                const response = await fetch(`https://gutendex.com/books/?page=${page}&search=${encodedSearchTerm}`);
+                const baseUrl = 'https://gutendex.com/books/?page=' + page;
+                const searchParams = (searchTerm && value) ? `&search=${encodedSearchTerm}&topic=${value}` : (searchTerm || value) ? (searchTerm ? `&search=${encodedSearchTerm}` : `&topic=${value}`) : '';
+                const response = await fetch(baseUrl + searchParams, { headers: { 'Content-Type': 'application/json' } });
+                window.history.pushState(null, '', `?page=${page}${searchParams}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -36,7 +39,7 @@ const Books = () => {
 
         fetchData();
 
-    }, [page, searchTerm]); // Add searchTerm to the dependency array
+    }, [page, searchTerm, value]); // Add searchTerm to the dependency array
 
 
     // ... existing error and loading handling code ...
@@ -48,7 +51,7 @@ const Books = () => {
 
         <div className='mt-12'>
             <div className='flex gap-2 flex-col-reverse lg:flex-row lg:items-center lg:justify-between'>
-                <Dropdownlist />
+                <Dropdownlist value={value} setValue={setValue} />
                 <div className='flex justify-center mb-4'> {/* New search input container */}
                     <input
                         type='text'

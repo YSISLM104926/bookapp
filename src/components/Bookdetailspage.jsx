@@ -33,8 +33,6 @@ const Bookdetailspage = () => {
     return <div className='flex justify-center items-center h-screen'>loading.....</div>
   }
 
-  console.log(data);
-
   return (
     <div className="flex flex-col items-center justify-center border rounded-xl shadow py-12">
       {

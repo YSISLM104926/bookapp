@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import WishListCard from './WishListCard';
+import Navbar from '../shared/Navbar';
 
 const Wishlistpage = () => {
+  const data = JSON.parse(localStorage.getItem('books')) || [];
+  useEffect(() => {
+    console.log(data);
+  }, [data])
   return (
     <div>
-        <h1>Wish</h1>
+      <Navbar />
+      <h1 className='mt-20'>Wishlist</h1>
+      <div className='grid grid-cols-2 lg:grid-cols-6'>
+        {
+          data?.map((d) => (
+            <>
+              <WishListCard d={d} keys={d.id} />
+            </>
+          ))
+        }
+      </div>
     </div>
   )
 }

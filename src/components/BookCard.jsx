@@ -3,9 +3,15 @@ import { Link, Router } from 'react-router-dom';
 import { Heart } from 'lucide-react';
 
 const BookCard = ({ res }) => {
-    console.log(res)
     const handleSingleBookShow = () => {
         window.location.href = `/book/${res.id}`
+    }
+    const handleAddBookToStorage = (res) => {
+        let storedBooks = JSON.parse(localStorage.getItem('books')) || [];
+        if (!storedBooks.includes(res)) {
+            storedBooks.push(res);
+            localStorage.setItem('books', JSON.stringify(storedBooks));
+        }
     }
     return (
         <div>
@@ -18,7 +24,7 @@ const BookCard = ({ res }) => {
                             src={res.formats['image/jpeg']}
                             alt=""
                         />
-                        <div className='absolute bottom-2 right-2'>
+                        <div onClick={() => handleAddBookToStorage(res)} className='absolute bottom-2 right-2'>
                             <Heart size={23} className='bg-black hover:bg-gray-700 text-white hover:cursor-pointer rounded-full p-1' />
                         </div>
                     </div>
