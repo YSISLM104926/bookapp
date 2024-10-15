@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query'; 
+import { useQuery } from '@tanstack/react-query';
 import BookCard from './BookCard';
 import Dropdownlist from './Dropdownlist';
 import Spinner from './spinner/Spinner';
@@ -8,6 +8,7 @@ import Spinner from './spinner/Spinner';
 const fetchBooks = async (page, searchTerm, value) => {
     const encodedSearchTerm = encodeURIComponent(searchTerm).replace(/%20/g, '%2520');
     const baseUrl = `${import.meta.env.VITE_BOOK_API}/?page=${page}`;
+    console.log('baseUrl', baseUrl);
     const searchParams = (searchTerm && value) ? `&search=${encodedSearchTerm}&topic=${value}` : (searchTerm || value) ? (searchTerm ? `&search=${encodedSearchTerm}` : `&topic=${value}`) : '';
     const response = await fetch(baseUrl + searchParams, { headers: { 'Content-Type': 'application/json' } });
     window.history.pushState(null, '', `?page=${page}${searchParams}`);
