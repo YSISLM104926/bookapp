@@ -11,7 +11,7 @@ const Wishlistpage = () => {
     <div>
       <Navbar />
       <div className='w-1/2 mt-12 mx-auto ms-[60px] lg:w-full'>
-        <div className='grid grid-cols-1 lg:grid-cols-6'>
+        <div className='grid gap-6 grid-cols-1 lg:grid-cols-6'>
           {
             data?.map((d) => (
               <>
