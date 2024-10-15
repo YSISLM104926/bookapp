@@ -13,7 +13,7 @@ const Books = () => {
     const [page, setPage] = useState(1);
     const [error, setError] = useState(null);
     const [value, setValue] = useState(null);
-    const [searchTerm, setSearchTerm] = useState(null); // New state for search term
+    const [searchTerm, setSearchTerm] = useState(null); 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,10 +39,9 @@ const Books = () => {
 
         fetchData();
 
-    }, [page, searchTerm, value]); // Add searchTerm to the dependency array
+    }, [page, searchTerm, value]); 
 
 
-    // ... existing error and loading handling code ...
     if (loading) {
         return <div className='flex justify-center items-center h-screen'>loading.....</div>
     }
@@ -52,7 +51,7 @@ const Books = () => {
         <div className='mt-12'>
             <div className='flex gap-2 flex-col-reverse lg:flex-row lg:items-center lg:justify-between'>
                 <Dropdownlist value={value} setValue={setValue} />
-                <div className='flex justify-center mb-4'> {/* New search input container */}
+                <div className='flex justify-center mb-4'> 
                     <input
                         type='text'
                         placeholder='Search for a book...'
@@ -61,7 +60,7 @@ const Books = () => {
                         className='border rounded p-2 mr-2'
                     />
                     <button
-                        onClick={() => setPage(1)} // Reset to first page on search
+                        onClick={() => setPage(1)} 
                         className='bg-blue-500 text-white p-2 rounded hover:bg-blue-400'
                     >
                         Search

@@ -16,7 +16,7 @@ const Dropdownlist = ({ value, setValue }) => {
             }
         };
         fetchData();
-    }, []); // Add searchTerm to the dependency array
+    }, []); 
 
     const topics = data?.results?.map(result => result.subjects).flat();
     const uniqueTopics = [...new Set(topics)];
