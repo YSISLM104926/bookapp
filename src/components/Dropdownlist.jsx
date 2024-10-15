@@ -6,7 +6,7 @@ const Dropdownlist = ({ value, setValue }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`https://gutendex.com/books/`);
+                const response = await fetch(`${import.meta.env.VITE_BOOK_API}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

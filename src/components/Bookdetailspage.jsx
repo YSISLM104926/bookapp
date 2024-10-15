@@ -12,7 +12,7 @@ const Bookdetailspage = () => {
     const fetchData = async () => {
       setError(null);
       try {
-        const response = await fetch(`https://gutendex.com/books/?ids=${id}`);
+        const response = await fetch(`${import.meta.env.VITE_BOOK_API}/?ids=${id}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

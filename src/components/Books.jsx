@@ -7,7 +7,7 @@ import Spinner from './spinner/Spinner';
 
 const fetchBooks = async (page, searchTerm, value) => {
     const encodedSearchTerm = encodeURIComponent(searchTerm).replace(/%20/g, '%2520');
-    const baseUrl = 'https://gutendex.com/books/?page=' + page;
+    const baseUrl = `${import.meta.env.VITE_BOOK_API}/?page=${page}`;
     const searchParams = (searchTerm && value) ? `&search=${encodedSearchTerm}&topic=${value}` : (searchTerm || value) ? (searchTerm ? `&search=${encodedSearchTerm}` : `&topic=${value}`) : '';
     const response = await fetch(baseUrl + searchParams, { headers: { 'Content-Type': 'application/json' } });
     window.history.pushState(null, '', `?page=${page}${searchParams}`);
