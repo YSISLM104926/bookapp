@@ -67,8 +67,10 @@ const Books = () => {
                 </div>
             </div>
             <h1 className='mt-10'>Total Books: {data?.count}</h1>
-            <div className='grid grid-cols-2 lg:grid-cols-6'>
-                {data?.results?.map((res) => <BookCard key={res?.id} res={res} />)}
+            <div className='w-1/2 mx-auto ms-[60px]'>
+                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6'>
+                    {data?.results?.map((res) => <BookCard key={res?.id} res={res} />)}
+                </div>
             </div>
 
             <div className='flex gap-5 justify-center mt-10 mb-10'>

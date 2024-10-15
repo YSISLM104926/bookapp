@@ -10,7 +10,7 @@ const Navbar = () => {
             <div className='flex justify-between'>
                 <Link onClick={handleReload} to="/" className="flex gap-3">
                     <BookOpen size={24} />
-                    <span>Gutenberg Library</span>
+                    <span>Library</span>
                 </Link>
                 <div className="flex gap-12">
                     <Link to="/">Home</Link>
