@@ -67,7 +67,7 @@ const Books = () => {
                 </div>
             </div>
             <h1 className='mt-10'>Total Books: {data?.count}</h1>
-            <div className='w-1/2 mx-auto ms-[60px]'>
+            <div className='w-1/2 mx-auto ms-[60px] lg:w-full'>
                 <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6'>
                     {data?.results?.map((res) => <BookCard key={res?.id} res={res} />)}
                 </div>
