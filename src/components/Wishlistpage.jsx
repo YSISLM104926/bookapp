@@ -10,8 +10,7 @@ const Wishlistpage = () => {
   return (
     <div>
       <Navbar />
-      <h1 className='mt-20'>Wishlist</h1>
-      <div className='w-1/2 mx-auto ms-[60px] lg:w-full'>
+      <div className='w-1/2 mt-12 mx-auto ms-[60px] lg:w-full'>
         <div className='grid grid-cols-1 lg:grid-cols-6'>
           {
             data?.map((d) => (

@@ -12,26 +12,30 @@ const WishListCard = ({ d }) => {
         window.location.reload();
     }
     return (
-        <div key={d.id}>
-            
-            <div className='grid grid-cols-5'>
-                <div className=' mt-12 border w-48 relative p-3'>
-                    <h1 className='font-thin'>id: {d.id}</h1>
-                    <div className='relative'>
-                        <img
-                            className='w-full h-48 object-cover'
-                            src={d.formats['image/jpeg']}
-                            alt=""
-                        />
-                        <div onClick={() => handleDeleteBookToStorage(d.id)} className='absolute bottom-2 right-2'>
-                            <Heart size={23} className='bg-green-500 hover:bg-gray-700 text-white hover:cursor-pointer rounded-full p-1' />
-                        </div>
-                    </div>
-                    <h1 className='w-44'>Title: {d.title.slice(0, 10)}</h1>
-                    <button onClick={handleSingleBookShow}  className='bg-gray-200 hover:bg-gray-100 w-40 mt-1'>
-                        View details
-                    </button>
-                </div>
+        <div className="max-w-sm overflow-hidden shadow-lg border border-gray-400 bg-white transition-all duration-300 hover:shadow-xl">
+            <div className="relative">
+                <img
+                    className="w-full h-64 object-cover"
+                    src={d.formats['image/jpeg']}
+                    alt={d.title}
+                />
+                <button
+                    onClick={() => handleDeleteBookToStorage(d.id)}
+                    className="absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
+                    aria-label="Add to favorites"
+                >
+                    <Heart size={20} className="text-red-500" />
+                </button>
+            </div>
+            <div className="px-6 py-4">
+                <div className="font-bold text-xl mb-2 truncate">{d.title}</div>
+                <p className="text-gray-600 text-sm mb-2">ID: {d.id}</p>
+                <button
+                    onClick={handleSingleBookShow}
+                    className="w-full bg-black text-white py-2 px-4  transition-colors duration-200"
+                >
+                    View Details
+                </button>
             </div>
         </div>
     );

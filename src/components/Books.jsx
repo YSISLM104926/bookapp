@@ -68,16 +68,30 @@ const Books = () => {
                 </div>
             </div>
             <h1 className='mt-10'>Total Books: {data?.count}</h1>
-            <div className='w-1/2 mx-auto ms-[60px] lg:w-full'>
-                <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6'>
+            <div className='w-1/2 mx-auto mt-12 lg:w-full'>
+                <div className='grid gap-6 grid-cols-1 md:grid-cols-3 lg:grid-cols-6'>
                     {data?.results?.map((res) => <BookCard key={res?.id} res={res} />)}
                 </div>
             </div>
 
-            <div className='flex gap-5 justify-center mt-10 mb-10'>
-                <button onClick={() => handlePageChange(page - 1)} className='bg-gray-300 p-2 rounded hover:bg-gray-200'><ChevronLeft /></button>
-                <button className='bg-gray-300 p-2 rounded hover:bg-gray-200'>{page}</button>
-                <button onClick={() => handlePageChange(page + 1)} className='bg-gray-300 p-2 rounded hover:bg-gray-200'><ChevronRight /></button>
+            <div className='flex items-center justify-center space-x-2 my-8'>
+                <button
+                    onClick={() => handlePageChange(page - 1)}
+                    className='flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 transition-colors duration-200 hover:bg-gray-100'
+                    aria-label="Previous page"
+                >
+                    <ChevronLeft className="w-5 h-5" />
+                </button>
+                <span className='flex items-center justify-center w-10 h-10 rounded-full bg-black text-white font-medium'>
+                    {page}
+                </span>
+                <button
+                    onClick={() => handlePageChange(page + 1)}
+                    className='flex items-center justify-center w-10 h-10 rounded-full bg-white border border-gray-300 text-gray-600 transition-colors duration-200 hover:bg-gray-100'
+                    aria-label="Next page"
+                >
+                    <ChevronRight className="w-5 h-5" />
+                </button>
             </div>
         </div>
     );
